@@ -12,9 +12,9 @@ class Node{
     Node* next; // the pointer to the next value
     
     // constructor
-    Node (DataType data1, Node* next1=NULL){
-        data=data1;  // Initialize data with the provided value
-        next=next1;  // Initialize next with the provided
+    Node (DataType newData, Node* newNext=NULL){
+        this->data=newData;  // Initialize data with the provided value
+        this->next=newNext;  // Initialize next with the provided
     }
 };
 /* ================================ Singly Linked List Basic Snippets ============================================*/
