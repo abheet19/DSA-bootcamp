@@ -181,7 +181,7 @@ Node<int>* insertAtIndex(Node<int>* head, int val, int index) {         // Time 
     return head;
 }
 // Function to insert a new node with data 'el' after the node with data 'val'
-Node<int>* insertBeforeNode(Node<int>* head, int newElement, int value) {
+Node<int>* insertBeforeNode(Node<int>* head, int newElement, int value) {  // Time - O(n) and Space - O(1)
     if (head == NULL) {
         return NULL;
     }
@@ -240,6 +240,7 @@ signed main(){
     head = insertHead(head, 100);
     head=insertTail(head,-100);
     head=insertAtIndex(head,-69,5);  //remember here 5 is the 5th index at which we have to insert
+    head = insertBeforeNode(head, 5, -69);  //insert 5 berfore -69 value node
 
     cout<<"Linked List before element insertion"<<'\n';
     printLL(head);
