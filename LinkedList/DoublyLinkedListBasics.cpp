@@ -365,7 +365,7 @@ int main()
     // Length and search
     cout << "Length of Doubly Linked List: " << DLL.lengthOfLinkedList() << '\n';
     cout << "Memory value of current head: " << DLL.getHead() << '\n'; // returns the memory value
-    cout << "Data at current head: " << DLL.getHead()->data << '\n';         // returns the data stored at that memory point
+    cout << "Data at current head: " << DLL.getHead()->data << '\n';   // returns the data stored at that memory point
     cout << (DLL.checkifDataPresent(5) ? "Yes data is present" : "Data is not present") << '\n';
 
     // Deletions

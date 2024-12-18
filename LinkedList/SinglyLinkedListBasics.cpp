@@ -77,14 +77,14 @@ public:
     }
 
     Node<DataType> *convertarr2LL(vector<DataType> &arr)
-    {                                            // Time - O(n) and Space - O(1)
+    {                                      // Time - O(n) and Space - O(1)
         head = new Node<DataType>(arr[0]); // creating head
-        Node<DataType> *mover = head;                 // temp pointer pointing towards head
+        Node<DataType> *mover = head;      // temp pointer pointing towards head
 
         for (size_t i = 1; i < arr.size(); i++)
         {
             mover->next = new Node<DataType>(arr[i]); // creating new node and assigning it to mover->next
-            mover = mover->next;                 // moving mover to the next node
+            mover = mover->next;                      // moving mover to the next node
         }
         return head;
     }
@@ -275,7 +275,7 @@ int main()
     }
     LinkedList<int> LL;
     Node<int> *head = LL.convertarr2LL(list);
-    
+
     // Length and search
     cout << "Length of Linked List: " << LL.lengthOfLinkedList() << '\n';
     cout << "Memory value of current head: " << head << '\n'; // returns the memory value
