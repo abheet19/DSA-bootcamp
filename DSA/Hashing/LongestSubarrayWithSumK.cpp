@@ -12,6 +12,8 @@ public:
     int longestSubarrayWithSumKBruteFoce(vector<int> &nums, int k)
     {
         int n = nums.size();
+        if (n == 0)
+            return 0;
         int maxLength = 0;
 
         // starting index
@@ -34,12 +36,44 @@ public:
         }
         return maxLength;
     }
-    // This solution is for the case when the array contains both positive and negative integers
-    // Time complexity: O(nlogn)
-    // Space complexity: O(n)
+
+    // This solution is for the case when the array contains only positive integers
+    // Time complexity: O(n^2)
+    // Space complexity: O(1)
     int longestSubarrayWithSumKBetter(vector<int> &nums, int k)
     {
         int n = nums.size();
+        if (n == 0)
+            return 0;
+        int maxLength = 0;
+
+        // starting index
+        for (int startIndex = 0; startIndex < n; startIndex++)
+        {
+            int currentSum = 0;
+            // ending index
+            for (int endIndex = startIndex; endIndex < n; endIndex++)
+            {
+
+                /* add all the elements of
+                   subarray = a[startIndex...endIndex]  */
+                currentSum += nums[endIndex];
+
+                // When sum is equal to k, check the maxLength
+                if (currentSum == k)
+                    maxLength = max(maxLength, endIndex - startIndex + 1);
+            }
+        }
+        return maxLength;
+    }
+    // This solution is for the case when the array contains both positive and negative integers
+    // Time complexity: O(nlogn)
+    // Space complexity: O(n)
+    int longestSubarrayWithSumKOptimal(vector<int> &nums, int k)
+    {
+        int n = nums.size();
+        if (n == 0)
+            return 0;
 
         map<int, int> preSumMap;
         int sum = 0;
@@ -73,33 +107,6 @@ public:
         }
 
         return maxLen;
-    }
-    // This solution is for the case when the array contains only positive integers
-    // Time complexity: O(n^2)
-    // Space complexity: O(1)
-    int longestSubarrayWithSumKOptimal(vector<int> &nums, int k)
-    {
-        int n = nums.size();
-        int maxLength = 0;
-
-        // starting index
-        for (int startIndex = 0; startIndex < n; startIndex++)
-        {
-            int currentSum = 0;
-            // ending index
-            for (int endIndex = startIndex; endIndex < n; endIndex++)
-            {
-
-                /* add all the elements of
-                   subarray = a[startIndex...endIndex]  */
-                currentSum += nums[endIndex];
-
-                // When sum is equal to k, check the maxLength
-                if (currentSum == k)
-                    maxLength = max(maxLength, endIndex - startIndex + 1);
-            }
-        }
-        return maxLength;
     }
 
     /**
@@ -170,7 +177,7 @@ int main()
     cout << "The length of the longest subarray for brute force approach is: " << len << "\n";
 
     len = solution.longestSubarrayWithSumKBetter(a, k);
-    cout << "The length of the longest subarray for sorting approach is: " << len << "\n";
+    cout << "The length of the longest subarray for better approach is: " << len << "\n";
 
     len = solution.longestSubarrayWithSumKOptimal(a, k);
     cout << "The length of the longest subarray for optimal approach is: " << len << "\n";
