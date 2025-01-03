@@ -54,8 +54,8 @@ public:
             }
         }
 
-        result[0] = max_profit;
-        result[1] = count;
+        result[0] = count;
+        result[1] = max_profit;
 
         return result;
     }
