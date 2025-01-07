@@ -20,37 +20,44 @@ public:
             return;
         }
         helper(root->left, result);
-        result.push_back(root->data);
         helper(root->right, result);
+        result.push_back(root->data);
     }
     // Time Complexity: O(N)
     // Space Complexity: O(N)
-    vector<int> InOrderRecursive(TreeNode *root)
+    vector<int> postOrderRecursive(TreeNode *root)
     {
         vector<int> result;
         helper(root, result);
         return result;
     }
-    vector<int> InOrderIterative(TreeNode *root)
+    vector<int> postOrderIterative(TreeNode *root)
     {
         vector<int> result;
         stack<TreeNode *> st;
         TreeNode *curr = root;
+        TreeNode *prev = nullptr;
 
         while (!st.empty() || curr)
-        { // If we have a current node (not NULL), push it to the stack and move to its left child
+        {
             if (curr)
             {
                 st.push(curr);
-                curr = curr->left; // Move to left child
+                curr = curr->left;
             }
             else
             {
-                // If we've reached the end of a subtree (stack not empty), pop the top node
-                curr = st.top();
-                st.pop();
-                result.push_back(curr->data); // Add the popped node's value to the result
-                curr = curr->right;           // Move to the right child of the popped node
+                TreeNode *temp = st.top()->right;
+                if (temp == nullptr || temp == prev)
+                {
+                    prev = st.top();
+                    result.push_back(prev->data);
+                    st.pop();
+                }
+                else
+                {
+                    curr = temp;
+                }
             }
         }
 
@@ -58,7 +65,7 @@ public:
     }
 };
 
-// Main function to test the inorder traversal
+// Main function to test the preorder traversal
 int main()
 {
     // Creating a sample binary tree
@@ -70,19 +77,19 @@ int main()
 
     // Create an instance of the Solution class
     Solution solution;
-    // Getting inorder traversal
-    vector<int> resultRecursive = solution.InOrderRecursive(root);
-    vector<int> resultIterative = solution.InOrderIterative(root);
+    // Getting postorder traversal
+    vector<int> resultRecursive = solution.postOrderRecursive(root);
+    vector<int> resultIterative = solution.postOrderIterative(root);
 
-    // Displaying the inorder traversal result
-    cout << "Inorder Traversal Recursive: ";
+    // Displaying the postorder traversal result
+    cout << "Postorder Traversal Recursive: ";
     for (int val : resultRecursive)
     {
         cout << val << " ";
     }
     cout << endl;
 
-    cout << "Inorder Traversal Iterative: ";
+    cout << "Postorder Traversal Iterative: ";
     for (int val : resultIterative)
     {
         cout << val << " ";
