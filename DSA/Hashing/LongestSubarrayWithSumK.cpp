@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -122,7 +121,6 @@ public:
      * @param k The target sum.
      * @return The length of the longest subarray with sum equal to k.
      */
-
     int longestSubarrayWithSumKBest(const vector<int> &nums, int k)
     {
         int n = nums.size();
@@ -154,13 +152,51 @@ public:
                 prefixSumMap[currentSum] = i;
             }
         }
-        // Special case: if k is 0, the whole array is a valid subarray
-        if (k == 0)
-        {
-            maxLength = n;
-        }
+        // Removed the special case handling for k == 0
+        // if (k == 0)
+        // {
+        //     maxLength = n;
+        // }
 
         return maxLength;
+    }
+
+    /**
+     * Checks if there exists at least one subarray with sum equal to k.
+     *
+     * This function uses a hash map to store prefix sums and determines
+     * the existence of a valid subarray in O(n) time complexity.
+     *
+     * Time Complexity: O(n)
+     * Space Complexity: O(n)
+     *
+     * @param nums The input vector containing integers.
+     * @param k The target sum.
+     * @return True if such a subarray exists, otherwise false.
+     */
+    bool hasSubarrayWithSumK(const vector<int> &nums, int k)
+    {
+        unordered_map<long long, int> prefixSumMap;
+        long long currentSum = 0;
+
+        // Initialize the map with 0 sum having been seen once
+        prefixSumMap[0] = 1; // Changed from -1 to 1
+
+        for (int num : nums)
+        {
+            currentSum += static_cast<long long>(num);
+
+            // Check if there is a prefix sum that equals currentSum - k
+            if (prefixSumMap.find(currentSum - k) != prefixSumMap.end())
+            {
+                return true;
+            }
+
+            // Update the prefix sum map
+            prefixSumMap[currentSum]++;
+        }
+
+        return false;
     }
 };
 
@@ -184,6 +220,10 @@ int main()
 
     len = solution.longestSubarrayWithSumKBest(a, k);
     cout << "The length of the longest subarray for best approach is: " << len << "\n";
+
+    // Adding a call to hasSubarrayWithSumK to test its functionality
+    bool exists = solution.hasSubarrayWithSumK(a, k);
+    cout << (exists ? "true" : "false") << "\n";
 
     return 0;
 }

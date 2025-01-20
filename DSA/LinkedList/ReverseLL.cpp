@@ -100,7 +100,7 @@ int main()
     // Solution instance
     Solution sol;
     // Reverse the linked list
-    head = sol.reverseList(head);
+    head = sol.reverseListIterative(head);
 
     // Print the reversed linked list
     cout << "Reversed Linked List: ";

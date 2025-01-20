@@ -4,39 +4,6 @@ using namespace std;
 class Solution
 {
 public:
-    // Time Complexity: O(n) - Single pass through the array
-    // Space Complexity: O(n) - Extra space for the hash map
-    vector<int> twoSumUsingHashmap(vector<int> &nums, int target)
-    {
-        // Map to store (element, index) pairs
-        unordered_map<int, int> mpp;
-
-        // Size of the nums vector
-        int n = nums.size();
-
-        for (int i = 0; i < n; i++)
-        {
-            // Current number in the vector
-            int num = nums[i];
-            // Number needed to reach the target
-            int moreNeeded = target - num;
-
-            // Check if the complement exists in map
-            if (mpp.find(moreNeeded) != mpp.end())
-            {
-                /* Return the indices of the
-                two numbers that sum up to target*/
-                return {min(mpp[moreNeeded], i), max(mpp[moreNeeded], i)};
-            }
-
-            // Store current number and its index in map
-            mpp[num] = i;
-        }
-
-        // If no such pair found, return {-1, -1}
-        return {-1, -1};
-    }
-
     // Two-Pointer Approach
     // Time Complexity: O(n log n) - Sorting the array
     // Space Complexity: O(1) - No extra space needed
@@ -80,77 +47,112 @@ public:
     // Find All Pairs That Sum to Target
     // Time Complexity: O(n log n) - Sorting the array
     // Space Complexity: O(n) - Extra space for storing pairs
-    vector<vector<int>> findAllPairs(vector<int> &nums, int target) {
-        vector<vector<int>> result;
-        
-        // Sort the original array to use two-pointer technique
+    vector<pair<int, int>> findAllPairs(vector<int> &nums, int target)
+    {
+        vector<pair<int, int>> result;
+
+        // Sort the array to apply two-pointer technique
         sort(nums.begin(), nums.end());
-        
+
         int left = 0;
         int right = nums.size() - 1;
-        
-        while(left < right) {
+
+        while (left < right)
+        {
             int currentSum = nums[left] + nums[right];
-            if(currentSum == target) {
-                if(nums[left] == nums[right]) {
-                    int count = right - left + 1;
-                    int pairCount = count * (count - 1) / 2;
-                    for(int i = 0; i < pairCount; ++i) {
-                        result.emplace_back(vector<int>{nums[left], nums[right]});
-                    }
-                    break;
-                }
-                else {
-                    int countLeft = 1;
-                    while(left + 1 < right && nums[left] == nums[left + 1]) {
-                        countLeft++;
-                        left++;
-                    }
-                    
-                    int countRight = 1;
-                    while(right - 1 > left && nums[right] == nums[right - 1]) {
-                        countRight++;
-                        right--;
-                    }
-                    
-                    for(int i = 0; i < countLeft * countRight; ++i) {
-                        result.emplace_back(vector<int>{nums[left], nums[right]});
-                    }
-                    
+            if (currentSum == target)
+            {
+                result.emplace_back(make_pair(nums[left], nums[right]));
+
+                // Move left pointer to the next different number
+                while (left < right && nums[left] == nums[left + 1])
                     left++;
+                // Move right pointer to the previous different number
+                while (left < right && nums[right] == nums[right - 1])
                     right--;
-                }
+
+                left++;
+                right--;
             }
-            else if(currentSum < target) {
+            else if (currentSum < target)
+            {
                 left++;
             }
-            else {
+            else
+            {
                 right--;
             }
         }
-        
-        // Sort the result as per the problem statement
-        sort(result.begin(), result.end());
-    // Print the resulting pairs
-        
+
         return result;
     }
 };
 
+/*
+    Time Complexity: O(N)
+    Space Complexity: O(N)
+
+    Where 'N' is the total number of elements in the array.
+*/
+#include <unordered_map>
+
+vector<pair<int, int>> twoSum(vector<int> &arr, int target, int n)
+{
+    unordered_map<int, int> hashMap;
+    vector<pair<int, int>> ans;
+
+    for (int i = 0; i < n; i++)
+    {
+        int complement = target - arr[i];
+
+        // Check if the complement exists and has not been used up
+        if (hashMap.find(complement) != hashMap.end() && hashMap[complement] > 0)
+        {
+            ans.emplace_back(make_pair(complement, arr[i]));
+            hashMap[complement]--;
+        }
+        else
+        {
+            hashMap[arr[i]]++;
+        }
+    }
+
+    // If no valid pair exists.
+    if (ans.empty())
+    {
+        ans.emplace_back(make_pair(-1, -1));
+    }
+
+    return ans;
+}
+
 int main()
 {
-    int n = 5;
-    vector<int> nums = {2, 6, 5, 8, 11};
-    int target = 14;
+    int T;
+    cin >> T;
+    while (T--)
+    {
+        int N, target;
+        cin >> N >> target;
+        vector<int> nums(N);
+        for (int &num : nums)
+            cin >> num;
 
-    // Create an instance of the Solution class
-    Solution sol;
+        Solution sol;
+        // Replace findAllPairs with twoSum
+        vector<pair<int, int>> ans = twoSum(nums, target, N);
 
-    // Call the twoSum method to find the indices
-    vector<int> ans = sol.twoSumUsingHashmap(nums, target);
-
-    // Print the result
-    cout << "This is the answer: [" << ans[0] << ", " << ans[1] << "]" << endl;
-
+        if (ans.empty())
+        {
+            cout << "-1 -1\n";
+        }
+        else
+        {
+            for (auto &pair : ans)
+            {
+                cout << pair.first << " " << pair.second << "\n";
+            }
+        }
+    }
     return 0;
 }
