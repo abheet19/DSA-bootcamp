@@ -2,70 +2,79 @@
 using namespace std;
 
 // Definition for a binary tree node.
-struct TreeNode {
+struct TreeNode
+{
     int val;
     TreeNode *left;
     TreeNode *right;
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class Solution {
+class Solution
+{
 public:
-    //Time Complexity -> O(n)
-    //Space Complexity -> O(n)
-    int maxDepth(TreeNode *root){
-        if(root == NULL)
+    // Time Complexity -> O(n)
+    // Space Complexity -> O(h)
+    int maxDepth(TreeNode *root)
+    {
+        if (root == NULL)
             return 0;
 
         int lh = maxDepth(root->left);
         int rh = maxDepth(root->right);
 
-        return 1 + max(lh,rh);
+        return 1 + max(lh, rh);
     }
+    // Time Complexity -> O(n)
+    // Space Complexity -> O(n)
+    int maxDepthIterative(TreeNode *root)
+    {
+        int result = 0;
 
-    int maxDepthIterative(TreeNode *root){
-        int result=0;
-
-        if(root == NULL){
+        if (root == NULL)
+        {
             return 0;
         }
         queue<TreeNode *> q;
         q.push(root);
 
-        while(!q.empty()){
-            int size =q.size();
+        while (!q.empty())
+        {
+            int size = q.size();
 
-            for(int i=0; i<size;i++){
-                TreeNode *current=q.front();
+            for (int i = 0; i < size; i++)
+            {
+                TreeNode *current = q.front();
                 q.pop();
 
                 // Enqueue left child if it exists
-                if (current->left != NULL) {
+                if (current->left != NULL)
+                {
                     q.push(current->left);
                 }
 
                 // Enqueue right child if it exists
-                if (current->right != NULL) {
+                if (current->right != NULL)
+                {
                     q.push(current->right);
                 }
             }
             result++;
         }
         return result;
-        
     }
-
 };
 
-int main() {
+int main()
+{
     Solution solution;
     // Example usage:
-    TreeNode* root = new TreeNode(1);
+    TreeNode *root = new TreeNode(1);
     root->left = new TreeNode(2);
     root->right = new TreeNode(3);
     root->left->left = new TreeNode(4);
     root->left->right = new TreeNode(5);
-    
+
     cout << "Maximum Depth: " << solution.maxDepth(root) << endl;
     return 0;
 }

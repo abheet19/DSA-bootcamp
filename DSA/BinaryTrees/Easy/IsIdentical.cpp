@@ -11,22 +11,25 @@ struct TreeNode
 class Solution
 {
 public:
-    //Time Complexity -> O(n)
-    //Space Complexity -> O(n)
+    // Time Complexity -> O(n)
+    // Space Complexity -> O(h)
 
     bool isSameTree(TreeNode *p, TreeNode *q)
     {
-        if(p == NULL && q == NULL){
+        if (p == NULL && q == NULL)
+        {
             return true;
         }
-        if(p == NULL || q == NULL){
+        if (p == NULL || q == NULL)
+        {
             return false;
         }
-        if(p->data != q->data){
+        if (p->data != q->data)
+        {
             return false;
         }
-        bool isLeftSame= isSameTree(p->left,q->left);
-        bool isRightSame= isSameTree(p->right,q->right);
+        bool isLeftSame = isSameTree(p->left, q->left);
+        bool isRightSame = isSameTree(p->right, q->right);
 
         return isLeftSame && isRightSame;
     }
