@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -51,6 +50,14 @@ public:
         }
         return result;
     }
+
+    // Add destructor helper
+    void deleteTree(TreeNode* root) {
+        if (root == nullptr) return;
+        deleteTree(root->left);
+        deleteTree(root->right);
+        delete root;
+    }
 };
 // Function to print the elements of a vector
 void printVector(const vector<int> &vec)
@@ -84,5 +91,7 @@ int main()
         printVector(level);
     }
 
+    // Add cleanup before exit
+    solution.deleteTree(root);
     return 0;
 }
