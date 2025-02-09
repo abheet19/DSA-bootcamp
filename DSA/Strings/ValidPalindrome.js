@@ -16,3 +16,12 @@ var isPalindrome = function(s) {
     }
     return true;
 };
+
+// Time Complexity: O(n)
+// Space Complexity: O(1)
+
+// Test Cases
+console.log(isPalindrome("abcba")); // true
+console.log(isPalindrome("abccba")); // true
+console.log(isPalindrome("abccbaa")); // false
+console.log(isPalindrome("abccba1")); // true
