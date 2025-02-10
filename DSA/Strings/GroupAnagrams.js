@@ -21,7 +21,8 @@ var groupAnagrams = function(strs) {
     }
     return result;
 };
-
+//Time complexity: O(n * k)
+//Space complexity: O(n * k) where n is the number of strings and k is the maximum length of a string
 const groupAnagramsOptimal = (strs) => {
     const map = new Map();
   
