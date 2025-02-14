@@ -4,7 +4,7 @@
  * @returns {number} - Index of the first element > target value
  */
 class Solution {
-    upperBound(nums, x) {
+    static upperBound(nums, x) {
       let low = 0,
         high = nums.length - 1;
       let ans = nums.length;
@@ -27,11 +27,10 @@ class Solution {
   const nums = [1, 2, 2, 3];
   const x = 2;
   
-  // Create an instance of the Solution class
-  const sol = new Solution();
-  
-  // Function call to find the upper bound
-  const ind = sol.upperBound(nums, x);
+  // Since upperBound is a static method, call it directly on the class
+  const ind = Solution.upperBound(nums, x);
   
   console.log("The upper bound is the index:", ind);
+  
+  export const upperBound = (nums, x) => Solution.upperBound(nums, x);
   
