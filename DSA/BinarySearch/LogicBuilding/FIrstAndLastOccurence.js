@@ -43,7 +43,7 @@ class Solution {
     searchRangeOptimal(nums, target) {
         const result = [-1, -1];
 
-
+        
         return result;
     }
 }
