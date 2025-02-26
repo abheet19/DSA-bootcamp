@@ -39,7 +39,7 @@ Array.prototype.myReduce = function (cb, intialValue) {
   let acc = initialValue !== undedined ? initialValue : this[0];
   const startIndex = initialValue !== undefined ? 0 : 1;
 
-  for (let i = 0; i < this.length; i++) {
+  for (let i = startIndex; i < this.length; i++) {
     acc = cb((acc, this[i], i, this));
   }
   return acc;

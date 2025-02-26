@@ -1,5 +1,5 @@
-import { lowerBound } from "../Easy/LowerBound.js";
-import { upperBound } from "../Easy/UpperBound.js";
+import { lowerBound } from "../Easy/lower-bound.js";
+import { upperBound } from "../Easy/upper-bound.js";
 class Solution {
     /**
      * @param {number[]} nums
@@ -27,7 +27,7 @@ class Solution {
     }
     //Time Complexity: O(log n)
     //Space Complexity: O(1)
-    searchRangeBetter(nums, target) {
+    searchRangeOptimal(nums, target) {
         const result = [-1, -1];
 
         let lb = lowerBound(nums, target);
@@ -40,12 +40,7 @@ class Solution {
         result[1] = ub - 1;
         return result;
     }
-    searchRangeOptimal(nums, target) {
-        const result = [-1, -1];
-
-        
-        return result;
-    }
+    
 }
 
 const arr= [5,7,7,8,8,10]
@@ -57,4 +52,7 @@ let output= solution.searchRangeBrute(arr,target)
 console.log(output) // [3,4]
 
 output= solution.searchRangeBetter(arr,target)
+console.log(output) // [3,4]
+
+output= solution.searchRangeOptimal(arr,target)
 console.log(output) // [3,4]
