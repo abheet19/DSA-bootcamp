@@ -12,7 +12,7 @@ class Solution {
       let mid = low + Math.floor((high - low) / 2);
       if (nums[mid] == target) {
         ans = mid;
-        breatarget;
+        break;
       }
       //Left Sorted
       if (nums[low] <= nums[mid]) {
