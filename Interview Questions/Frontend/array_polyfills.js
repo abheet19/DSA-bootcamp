@@ -32,11 +32,11 @@ Array.prototype.myFilter = function (cb) {
 const evenNumbers = arr.myFilter((x) => x % 2 === 0);
 console.log(evenNumbers); //[2,4]
 
-Array.prototype.myReduce = function (cb, intialValue) {
+Array.prototype.myReduce = function (cb, initialValue) {
   if (typeof cb !== "function") {
     throw new TypeError(cb + "is not a function");
   }
-  let acc = initialValue !== undedined ? initialValue : this[0];
+  let acc = initialValue !== undefined ? initialValue : this[0];
   const startIndex = initialValue !== undefined ? 0 : 1;
 
   for (let i = startIndex; i < this.length; i++) {
@@ -63,3 +63,17 @@ Array.prototype.myEvery = function (cb) {
 
 const areAllPositive = arr.myEvery((x) => x > 0);
 console.log(areAllPositive); //true
+
+Array.prototype.myForEach =function(cb){
+  if(typeof cb !== "function"){
+    throw new TypeError(cb + "is not a function");
+  }
+  for(let i=0;i<this.length;i++){
+    cb(this[i],i,this);
+  }
+};
+const arrData = [0,1,2,3,4,5,6,7,8,9];
+arrData.myForEach((element)=>{
+  console.log(element);
+});
+
