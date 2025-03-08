@@ -4,15 +4,14 @@
  * @returns {number} - Index of the first element >= target value
  */
 class Solution {
-  static lowerBound(nums, x) {
-    let low = 0,
-      high = nums.length - 1;
+  static lowerBound(nums, x, low, high) {
+    const epsilon = 1e-9; //tolerance for floating point comparison
     let ans = nums.length;
 
     while (low <= high) {
       let mid = low + Math.floor((high - low) / 2);
 
-      if (nums[mid] >= x) {
+      if (nums[mid] > x || Math.abs(nums[mid] - x) < epsilon) {
         ans = mid;
         high = mid - 1;
       } else {
@@ -22,5 +21,14 @@ class Solution {
     return ans;
   }
 }
+// Sample array and target
+const nums = [1, 2, 2, 3];
+const x = 2;
 
-export const lowerBound = (nums, x) => Solution.lowerBound(nums, x);
+// Since upperBound is a static method, call it directly on the class
+const ind = Solution.lowerBound(nums, x, 0, nums.length - 1);
+
+console.log("The lower bound is the index:", ind);
+
+export const lowerBound = (nums, x, low, high) =>
+  Solution.lowerBound(nums, x, low, high);
